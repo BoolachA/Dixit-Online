@@ -1,4 +1,3 @@
-
 TITLE = "Dixit online"
 GEOMETRY = "1000x750"
 
@@ -10,4 +9,5 @@ COLOR5 = "#DAFDBA"
 
 FULLSCREEN = False
 
-LOCALIP = ""
+HOST_PORT = 60000 #0-65535
+LOCALIP = "192.168.1.141"
