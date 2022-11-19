@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
-import socket, setting, sys, subprocess
+import socket, setting, subprocess, pyperclip, main
 from PIL import ImageTk, Image
 
 def setConfigHost():
@@ -9,23 +9,29 @@ def setConfigHost():
     hostVentana.configure(bg=setting.COLOR3)
     hostVentana.geometry(setting.GEOMETRY)
     hostVentana.iconphoto(False, Dlogo)
+    hostVentana.state('zoomed')
 
 def ventanaCerrada():
-    subprocess.Popen("TASKKILL /F /IM " + "ServerDixitOnline.exe")
+    subprocess.Popen("TASKKILL /F /IM ServerDixitOnline.exe")
     hostVentana.destroy()
-    sys.exit()
+    main.main()
+
+def copiarIp():
+    pyperclip.copy(setting.LOCALIP)
+    messagebox.showinfo("Copiar IP","IP Copiado!")
 
 def setupHost():
-    global hostVentana, Dlogo, p
+    global hostVentana, Dlogo
     hostVentana = Tk()
     Dlogo = ImageTk.PhotoImage(Image.open("media/Dlogo.png"))
     setConfigHost()
     setting.LOCALIP = socket.gethostbyname(socket.gethostname())
-    messagebox.showwarning("Juego local","Se creara un servidor local en este ordenador.")
-    p = subprocess.Popen(["ServerDixitOnline.exe"])
-    hostVentana.bind("<Control-0>", sys.exit)
+    messagebox.showwarning("Juego local","Se creará un servidor local en este ordenador.")
+    subprocess.Popen(["ServerDixitOnline.exe"])
     hostVentana.protocol("WM_DELETE_WINDOW", ventanaCerrada)
-    hostVentana.state('zoomed')
+    ipLabel = Label(hostVentana, text=f"IP del servidor: {setting.LOCALIP}")
+    ipLabel.pack()
+    ipLabel.bind("<Button-1>", lambda e:copiarIp())
     hostVentana.mainloop()
 
 if __name__ == "__main__":

@@ -42,7 +42,8 @@ def toggleFullscreen():
         setting.FULLSCREEN=False
     setConfigMenu()
 
-if __name__ == "__main__":
+def main():
+    global ventanaMenu, Dlogo, logo, logoLabel, startBtn, configBtn, salirBtn
     ventanaMenu = Tk()
     Dlogo = ImageTk.PhotoImage(Image.open("media/Dlogo.png"))
     logo = ImageTk.PhotoImage(Image.open("media/logo.jpg"))
@@ -54,3 +55,6 @@ if __name__ == "__main__":
     menu()
     ventanaMenu.bind("<Control-0>", sys.exit)
     ventanaMenu.mainloop()
+
+if __name__ == "__main__":
+    main()
