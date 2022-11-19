@@ -9,3 +9,5 @@ COLOR4 = "#9AEBA3"
 COLOR5 = "#DAFDBA"
 
 FULLSCREEN = False
+
+LOCALIP = ""

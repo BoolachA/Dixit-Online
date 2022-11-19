@@ -2,7 +2,6 @@ from tkinter import *
 from PIL import ImageTk, Image
 import setting
 import tkinter.font as fuente
-import newGame
 
 def setConfig():
     ventanaMenu.attributes("-fullscreen", setting.FULLSCREEN)
@@ -32,10 +31,13 @@ def btnMenuConfig():
 
 
 def newGameRequest():
-    startBtn.configure(text="Crear sala", command=newGame.configHost);configBtn.configure(text="Entrar", command=newGame.configClient);salirBtn.configure(text="Volver", command=btnMenuConfig)
+    startBtn.configure(text="Crear sala", command=hostConfig)
+    configBtn.configure(text="Entrar", command=" ")
+    salirBtn.configure(text="Volver", command=btnMenuConfig)
 
-def ajustesScreen():
-    ventanaConfig=Tk()
+def hostConfig():
+    ventanaMenu.destroy()
+    exec(open("newGame.py").read())
 
 def toggleFullscreen():
     if(setting.FULLSCREEN==False):
