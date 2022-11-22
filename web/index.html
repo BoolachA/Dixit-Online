@@ -11,6 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="/eel.js"></script>
     <title>Main</title>
 </head>
 <body bgcolor="#45C4B0">
@@ -21,8 +22,8 @@
     <div id="MenuA" class="screen">        
         <img src="./media/logo.jpg" class="center" id="imgLogo">
         <button class="center button" onclick="showScreen('MenuB')">INICIAR JUEGO</button>
-        <button class="center button" onclick="togglefullscreen()">PANTALLA COMPLETA</button>
-        <button class="center button" onclick="exit()">SALIR</button>
+        <button class="center button" onclick="toggleFullScreen()">PANTALLA COMPLETA</button>
+        <button class="center button" onclick="window.close()">SALIR</button>
     </div>
     <div id="MenuB" class="screen hidden">        
         <img src="./media/logo.jpg" class="center" id="imgLogo">
@@ -30,22 +31,6 @@
         <button class="center button">ENTRAR</button>
         <button class="center button" onclick="showScreen('MenuA')">VOLVER</button>
     </div>
-    <script>
-        function showScreen(screenName){
-            document.body.childNodes.forEach(child => {
-                try {
-                    if (child.id == screenName) {
-                        child.classList.remove("hidden")
-                    } else {
-                        child.classList.add("hidden")
-                    }
-                } catch (e) {}
-            });
-        }
-        function destoyBtn(){
-            document.getElementById("aviso").remove()
-        }
-        setTimeout(destoyBtn, 10000)
-    </script>
+    <script src="./index.js"></script>
 </body>
 </html>
