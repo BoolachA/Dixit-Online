@@ -9,7 +9,7 @@ def setConfigMenu():
     ventanaMenu.configure(bg=setting.COLOR3)
     ventanaMenu.geometry(setting.GEOMETRY)
     ventanaMenu.iconphoto(False, Dlogo)
-    ventanaMenu.state('zoomed')    
+    ventanaMenu.state('zoomed')
 
 def menu():
     logoLabel.pack(side=TOP, pady=40)

@@ -1,6 +1,6 @@
 from tkinter import *
 import setting, menu, socket
-from tkinter import simpledialog, messagebox
+from tkinter import simpledialog, messagebox, scrolledtext
 from PIL import ImageTk, Image
 
 def setConfigClient():
@@ -9,19 +9,36 @@ def setConfigClient():
     clientVentana.configure(bg=setting.COLOR3)
     clientVentana.geometry(setting.GEOMETRY)
     clientVentana.iconphoto(False, Dlogo)
+    logoLabel.pack(side=TOP)
     clientVentana.state('zoomed')
 
 def ventanaCerrada():
     clientVentana.destroy()
-    menu.main()
+    #menu.main()
+
+def configLobby():
+    chatbox.configure(width=100, height=30, bg=setting.COLOR4)
+    playerList.configure(width=70, height=30, bg=setting.COLOR4)
+    chatbox.place(x=((clientVentana.winfo_width()/4)-chatbox.winfo_reqwidth()/2.3), y=200)
+    #print(clientVentana.winfo_)
+    playerList.place(x=((clientVentana.winfo_width()/2)-playerList.winfo_reqwidth()/2), y=200)
+
+    pass
 
 def main():
-    global clientVentana, Dlogo
+    # while True: print("tumama")
+    global clientVentana, Dlogo, chatbox, logoLabel, playerList
     clientVentana = Tk()
     Dlogo = ImageTk.PhotoImage(Image.open("media/Dlogo.png"))
+    logo = ImageTk.PhotoImage(Image.open("media/logo2.jpg"))
+    logoLabel = Label(image=logo, borderwidth = 0, anchor=CENTER)
+    chatbox = scrolledtext.ScrolledText()
+    playerList = scrolledtext.ScrolledText()
     setConfigClient()
+    configLobby()
     setting.LOCALIP = socket.gethostbyname(socket.gethostname())
     connectValidation = False
+    
     while(connectValidation == False):
         serverIP = simpledialog.askstring("Introduzca IP", "Introduzca el IP de la sala: ")
         if(serverIP!=None):
