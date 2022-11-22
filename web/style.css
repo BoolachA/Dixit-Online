@@ -1,3 +1,7 @@
+.screen.hidden{
+    display: none;
+}
+
 .button {
     background-color: #13678A;
     border: none;
@@ -14,7 +18,7 @@
     max-width: 35%;
     
 }
-button:active{
+button:active{    
     background-color: #003753;
 }
 
@@ -32,9 +36,21 @@ button:active{
 }
 
 #aviso{
-    background-color: yellow;
-    padding: 1px;
-    max-width: 400px;
+    display: flex;
+    background-color: rgb(255, 65, 65);
+    padding: 5px;
+    max-width: 450px;
     position: absolute;
     z-index: 1;
+}
+
+#avisoImg{
+    height: 10%; 
+    width: 10%;
+}
+
+#avisotxt{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 13px;
 }

@@ -1,3 +1,9 @@
+<!-- 
+    Fuciones backend:
+    MenuA: toggleFullScreen, exit
+    MenuB: 
+ -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,18 +15,37 @@
 </head>
 <body bgcolor="#45C4B0">
     <div id="aviso">
-        
-        <p font="Arial">Juego en fase de pruebas, solamente funciona en redes locales</p>
+        <img src="./media/warning.png" id="avisoImg">
+        <p id="avisotxt">Juego en fase de pruebas, solamente funciona en redes locales</p>
     </div>
-    <img src="/media/logo.jpg" class="center" id="imgLogo">
-    <button class="center button">INICIAR JUEGO</button>
-    <button class="center button">PANTALLA COMPLETA</button>
-    <button class="center button">SALIR</button>
-<script>
-    function destoyBtn(){
-        document.getElementById("aviso").remove()
-    }
-    setTimeout(destoyBtn, 10000)
-</script>
+    <div id="MenuA" class="screen">        
+        <img src="./media/logo.jpg" class="center" id="imgLogo">
+        <button class="center button" onclick="showScreen('MenuB')">INICIAR JUEGO</button>
+        <button class="center button" onclick="togglefullscreen()">PANTALLA COMPLETA</button>
+        <button class="center button" onclick="exit()">SALIR</button>
+    </div>
+    <div id="MenuB" class="screen hidden">        
+        <img src="./media/logo.jpg" class="center" id="imgLogo">
+        <button class="center button">CREAR SALA</button>
+        <button class="center button">ENTRAR</button>
+        <button class="center button" onclick="showScreen('MenuA')">VOLVER</button>
+    </div>
+    <script>
+        function showScreen(screenName){
+            document.body.childNodes.forEach(child => {
+                try {
+                    if (child.id == screenName) {
+                        child.classList.remove("hidden")
+                    } else {
+                        child.classList.add("hidden")
+                    }
+                } catch (e) {}
+            });
+        }
+        function destoyBtn(){
+            document.getElementById("aviso").remove()
+        }
+        setTimeout(destoyBtn, 10000)
+    </script>
 </body>
 </html>
