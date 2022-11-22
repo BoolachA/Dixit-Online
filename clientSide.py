@@ -18,9 +18,8 @@ def ventanaCerrada():
 
 def configLobby():
     chatbox.configure(width=100, height=30, bg=setting.COLOR4)
-    playerList.configure(width=70, height=30, bg=setting.COLOR4)
-    chatbox.place(x=((clientVentana.winfo_width()/4)-chatbox.winfo_reqwidth()/2.3), y=200)
-    #print(clientVentana.winfo_)
+    playerList.configure(width=50, height=30, bg=setting.COLOR4)
+    chatbox.place(x=((clientVentana.winfo_width()/2)+chatbox.winfo_reqwidth()/2), y=200)
     playerList.place(x=((clientVentana.winfo_width()/2)-playerList.winfo_reqwidth()/2), y=200)
 
     pass
@@ -39,17 +38,17 @@ def main():
     setting.LOCALIP = socket.gethostbyname(socket.gethostname())
     connectValidation = False
     
-    while(connectValidation == False):
-        serverIP = simpledialog.askstring("Introduzca IP", "Introduzca el IP de la sala: ")
-        if(serverIP!=None):
-            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            try:
-                client.connect((serverIP, 60000))
-            except:
-                messagebox.showerror("Error", f"No ha sido posible conectarse al servidor {serverIP}")
-        else:
-            connectValidation=True
-            ventanaCerrada()
+    # while(connectValidation == False):
+    #     serverIP = simpledialog.askstring("Introduzca IP", "Introduzca el IP de la sala: ")
+    #     if(serverIP!=None):
+    #         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    #         try:
+    #             client.connect((serverIP, 60000))
+    #         except:
+    #             messagebox.showerror("Error", f"No ha sido posible conectarse al servidor {serverIP}")
+    #     else:
+    #         connectValidation=True
+    #         ventanaCerrada()
 
     clientVentana.protocol("WM_DELETE_WINDOW", ventanaCerrada)
     clientVentana.mainloop()
