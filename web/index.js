@@ -8,6 +8,9 @@ function showScreen(screenName){
             }
         } catch (e) {}
     });
+    if(screenName=="MenuA"){
+        eel.configHost("shutdown")
+    }
 }
 function destoyBtn(){
     document.getElementById("aviso").remove()

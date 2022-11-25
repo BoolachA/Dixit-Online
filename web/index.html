@@ -27,9 +27,18 @@
     </div>
     <div id="MenuB" class="screen hidden">        
         <img src="./media/logo.jpg" class="center" id="imgLogo">
-        <button class="center button">CREAR SALA</button>
-        <button class="center button">ENTRAR</button>
+        <button class="center button" onclick="eel.configHost('startup')">CREAR SALA</button>
+        <button class="center button" onclick="showScreen('joinLobby')">ENTRAR</button>
         <button class="center button" onclick="showScreen('MenuA')">VOLVER</button>
+    </div>
+    <div id="joinLobby" class="screen hidden">
+        <img src="./media/logo.jpg" class="left" id="imgLogoSmall">
+        <form>
+            <h1 id="iptitle">INTRODUZCA LA DIRECCIÓN IP DE LA SALA:</h1>
+            <input type="ip" name="search" placeholder="Introduzca la dirección IP de la sala...">
+            <button class="center button smaller">CONECTAR</button>
+            <button class="center button smaller" onclick="showScreen('MenuB')" type="button">CANCELAR</button>
+        </form>
     </div>
     <script src="./index.js"></script>
 </body>
