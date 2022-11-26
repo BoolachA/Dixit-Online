@@ -12,6 +12,7 @@ def configHost(stage):
     if(stage =="shutdown"):
         os.system("taskkill /f /im ServerDixitOnline.exe")
     elif(stage == "startup"):
+        eel.showScreen("GameLobby")
         print("Starting server as subprocess...")
         subprocess.Popen("ServerDixitOnline.exe")
 

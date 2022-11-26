@@ -1,3 +1,4 @@
+eel.expose(showScreen);
 function showScreen(screenName){
     document.body.childNodes.forEach(child => {
         try {
