@@ -18,6 +18,7 @@ def configHost(stage):
 def main():
     eel.init('web')
     eel.start('index.html', close_callback=salir)
+    # eel.start('index.html', close_callback=salir, cmdline_args=['--disable-extensions'], cmdline_args=['--bwsi'])
 
 if __name__ == "__main__":
     main()

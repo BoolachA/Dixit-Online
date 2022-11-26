@@ -1,84 +1,67 @@
-import socket, threading
+import socket
+import select
 
-HOST = socket.gethostbyname(socket.gethostname())
-PORT = 60000
-LISTENER_LIMIT = 5
-active_clients = [] # List of all currently connected users
+HEADER_LENGTH = 10
 
-# Function to listen for upcoming messages from a client
-def listen_for_messages(client, username):
+IP = str(socket.gethostbyname(socket.gethostname()))
+PORT = 60003
+print(f"Running server on {IP}:{PORT}")
 
-    while True:
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+server_socket.bind((IP, PORT))
+server_socket.listen()
 
-        message = client.recv(2048).decode('utf-8')
-        if message != '':
-            
-            final_msg = username + '~' + message
-            send_messages_to_all(final_msg)
+sockets_list = [server_socket]
+clients = {}
 
-        else:
-            print(f"Mensaje de {username} vacío")
+print(f'Listening for connections on {IP}:{PORT}...')
+def systemMsg(msg):
+    for client_socket in clients:
+        message = msg.encode('utf-8')
+        message_header = f"{len(msg):<{HEADER_LENGTH}}".encode('utf-8')
+        client_socket.send(f"6         System".encode('utf-8') + message_header + message)
 
 
-# Function to send message to a single client
-def send_message_to_client(client, message):
-
-    client.sendall(message.encode())
-
-# Function to send any new message to all the clients that
-# are currently connected to this server
-def send_messages_to_all(message):
-    
-    for user in active_clients:
-
-        send_message_to_client(user[1], message)
-
-# Function to handle client
-def client_handler(client):
-    
-    # Server will listen for client message that will
-    # Contain the username
-    while 1:
-
-        username = client.recv(2048).decode('utf-8')
-        if username != '':
-            active_clients.append((username, client))
-            prompt_message = "SERVER~" + f"{username} added to the chat"
-            send_messages_to_all(prompt_message)
-            break
-        else:
-            print("Client username is empty")
-
-    threading.Thread(target=listen_for_messages, args=(client, username, )).start()
-
-# Main function
-def main():
-
-    # Creating the socket class object
-    # AF_INET: we are going to use IPv4 addresses
-    # SOCK_STREAM: we are using TCP packets for communication
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    # Creating a try catch block
+def receive_message(client_socket):
     try:
-        # Provide the server with an address in the form of
-        # host IP and port
-        server.bind((HOST, PORT))
-        print(f"Running the server on {HOST} {PORT}")
+        message_header = client_socket.recv(HEADER_LENGTH)
+        if not len(message_header):
+            return False
+        message_length = int(message_header.decode('utf-8').strip())
+        return {'header': message_header, 'data': client_socket.recv(message_length)}
     except:
-        print(f"Unable to bind to host {HOST} and port {PORT}")
+        return False
 
-    # Set server limit
-    server.listen(LISTENER_LIMIT)
+while True:
+    read_sockets, _, exception_sockets = select.select(sockets_list, [], sockets_list)
+    for notified_socket in read_sockets:
+        if notified_socket == server_socket:
+            client_socket, client_address = server_socket.accept()
+            user = receive_message(client_socket)
+            if user is False:
+                continue
+            sockets_list.append(client_socket)
+            clients[client_socket] = user
+            print('Accepted new connection from {}:{}, username: {}'.format(*client_address, user['data'].decode('utf-8')))
+        else:
+            message = receive_message(notified_socket)
+            if message is False:
+                print('Closed connection from: {}'.format(clients[notified_socket]['data'].decode('utf-8')))
+                sockets_list.remove(notified_socket)
+                del clients[notified_socket]
+                continue
+            user = clients[notified_socket]
+            print(f'Received message from {user["data"].decode("utf-8")}: {message["data"].decode("utf-8")}')
 
-    # This while loop will keep listening to client connections
-    while 1:
+            ################################################
+            if(message['data'].decode("utf-8")=="prueba5"):
+                systemMsg("hola")
+            else:
+                for client_socket in clients:
+                    if client_socket != notified_socket:
+                        client_socket.send(user['header'] + user['data'] + message['header'] + message['data'])
 
-        client, address = server.accept()
-        print(f"Successfully connected to client {address[0]} {address[1]}")
-
-        threading.Thread(target=client_handler, args=(client, )).start()
-
-
-if __name__ == '__main__':
-    main()
+    for notified_socket in exception_sockets:
+        sockets_list.remove(notified_socket)
+        del clients[notified_socket]
