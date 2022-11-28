@@ -40,9 +40,18 @@
             <button class="center button smaller" onclick="showScreen('MenuB')" type="button">CANCELAR</button>
         </form>
     </div>
-    <div id="GameLobby" class="screen hidden">        
+    <div id="GameLobby" class="screen hidden">         
         <img src="./media/logo.jpg" class="left" id="imgLogoSmall">
-        <h1 id="ipAnnouce">IP de la sala: 192.168.0.42</h1>
+        <h1 id="ipAnnouce">IP de la sala: 127.0.0.1</h1>
+        <div id="gridImgs">
+            <div align="center">Texto1<img src="./media/userimg.png" class="center maxsize">Texto2</div>
+            <div align="center">Texto1<img src="./media/userimg.png" class="center maxsize">Texto2</div>
+            <div align="center">Texto1<img src="./media/userimg.png" class="center maxsize">Texto2</div>
+            <div align="center">Texto1<img src="./media/userimg.png" class="center maxsize">Texto2</div>
+            <div align="Center">Texto1<img src="./media/userimg.png" class="center maxsize">Texto2</div>
+        </div>
+        <button class="center button smaller">EMPEZAR</button>
+        <button class="center button smaller" onclick="showScreen('MenuB')">CANCELAR</button>
     </div>
     <script src="./index.js"></script>
 </body>

@@ -9,8 +9,13 @@ function showScreen(screenName){
             }
         } catch (e) {}
     });
-    if(screenName=="MenuA"){
+    if(screenName=="MenuB"){
         eel.configHost("shutdown")
+    }
+    else if(screenName=="GameLobby"){
+        let ip = 'Prueba';
+        ip = eel.getHostIp()();
+        document.getElementById("ipAnnouce").innerHTML = "IP de la sala: " + ip
     }
 }
 function destoyBtn(){

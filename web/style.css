@@ -60,6 +60,9 @@ button:active{
     margin-right: auto;
     width: 50%;
 }
+.maxsize {
+    width: 90%;
+}
 
 #imgLogo {
     height: 30%;
@@ -67,10 +70,16 @@ button:active{
     margin-bottom: 5%;
 }
 
+#gridImgs{
+    display: inline-grid;
+    grid-template-columns: auto auto auto auto auto;
+    background-color: #2196F3;
+    padding: 40px;
+}
+
 #imgLogoSmall {
     height: 20%;
     width: 20%;
-    margin-bottom: 5%;
 }
 
 input[type=ip] {

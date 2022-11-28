@@ -1,11 +1,10 @@
-import eel, os, subprocess
+import eel, os, subprocess, socket
 #import ctypes
 #ctypes.windll.user32.MessageBoxW(0, "message", "title", "icon"16)
 
 def salir(*kw):
     os.system("taskkill /f /im ServerDixitOnline.exe")
     os._exit(0)
-
 
 @eel.expose
 def configHost(stage):
@@ -19,7 +18,11 @@ def configHost(stage):
 def main():
     eel.init('web')
     eel.start('index.html', close_callback=salir)
-    # eel.start('index.html', close_callback=salir, cmdline_args=['--disable-extensions'], cmdline_args=['--bwsi'])
+
+@eel.expose
+def getHostIp():
+    localip = socket.gethostbyname(socket.gethostname())
+    return localip
 
 if __name__ == "__main__":
     main()
