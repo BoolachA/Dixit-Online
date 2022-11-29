@@ -11,13 +11,20 @@ function showScreen(screenName){
     });
     if(screenName=="MenuB"){
         eel.configHost("shutdown")
-    }
-    else if(screenName=="GameLobby"){
-        let ip = 'Prueba';
-        ip = eel.getHostIp()();
-        document.getElementById("ipAnnouce").innerHTML = "IP de la sala: " + ip
+        getHostIp()
     }
 }
+
+// document.addEventListener("keydown", function (e) {
+//     e = e || window.event;
+//     showScreen('MenuA')
+// })
+
+async function getHostIp(){
+    let ip = await eel.getHostIp()();
+    document.getElementById("ipAnnouce").innerHTML = "IP de la sala: " + ip
+}
+
 function destoyBtn(){
     document.getElementById("aviso").remove()
 }
@@ -37,6 +44,6 @@ function toggleFullScreen() {
     }
  }
  
- 
+
 
 setTimeout(destoyBtn, 10000)

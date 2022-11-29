@@ -3,17 +3,17 @@ import eel, os, subprocess, socket
 #ctypes.windll.user32.MessageBoxW(0, "message", "title", "icon"16)
 
 def salir(*kw):
-    os.system("taskkill /f /im ServerDixitOnline.exe")
+    os.system("taskkill /f /im server.py")
     os._exit(0)
 
 @eel.expose
 def configHost(stage):
     if(stage =="shutdown"):
-        os.system("taskkill /f /im ServerDixitOnline.exe")
+        os.system("taskkill /f /im server.py")
     elif(stage == "startup"):
         eel.showScreen("GameLobby")
         print("Starting server as subprocess...")
-        subprocess.Popen("ServerDixitOnline.exe")
+        subprocess.Popen("server.py")
 
 def main():
     eel.init('web')

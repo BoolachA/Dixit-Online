@@ -74,7 +74,7 @@ button:active{
     display: inline-grid;
     grid-template-columns: auto auto auto auto auto;
     background-color: #2196F3;
-    padding: 40px;
+    padding: 10px;
 }
 
 #imgLogoSmall {
@@ -92,6 +92,12 @@ input[type=ip] {
     font-size: 16px;
     padding: 15px 20px 12px 40px;
     text-align: center;
+}
+.NameTXT{
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #003753;
 }
 
 #aviso{
