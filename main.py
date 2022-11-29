@@ -1,4 +1,4 @@
-import eel, os, subprocess, socket
+import eel, os, subprocess, socket, client
 #import ctypes
 #ctypes.windll.user32.MessageBoxW(0, "message", "title", "icon"16)
 
@@ -14,6 +14,11 @@ def configHost(stage):
         eel.showScreen("GameLobby")
         print("Starting server as subprocess...")
         subprocess.Popen("server.py")
+
+@eel.expose
+def startClient(ip):
+    client.IP = ip
+    client.main()
 
 def main():
     eel.init('web')

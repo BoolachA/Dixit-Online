@@ -15,10 +15,10 @@ function showScreen(screenName){
     }
 }
 
-// document.addEventListener("keydown", function (e) {
-//     e = e || window.event;
-//     showScreen('MenuA')
-// })
+function connect(){
+    ip = document.getElementById('submitForm').value
+    eel.startClient(ip)
+}
 
 async function getHostIp(){
     let ip = await eel.getHostIp()();
