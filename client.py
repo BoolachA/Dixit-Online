@@ -3,10 +3,11 @@ import socket, sys, errno, secrets, eel
 HEADER_LENGTH = 10
 IP = "192.168.166.141"
 PORT = 60003
+RunninigClient = False
 
 def main():
     print(IP)
-    my_username = secrets.token_urlsafe(30)
+    my_username = secrets.token_urlsafe(10)
 
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -15,6 +16,7 @@ def main():
     username = my_username.encode('utf-8')
     username_header = f"{len(username):<{HEADER_LENGTH}}".encode('utf-8')
     client_socket.send(username_header + username)
+    
 
     while True:
         # if message:
@@ -35,7 +37,7 @@ def main():
                 print(f'{username} > {message}')
                 if(message[0:16]=="UPDATE$Connected"):
                     pos = message[-1]
-                    id = message[message.find("#"):message.find("%")]
+                    id = message[message.find("#")+3:message.find("%")-1]
                     print(pos, id)
                     eel.updatePlayerLobby(pos, id)
 

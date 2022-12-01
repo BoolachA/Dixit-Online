@@ -23,6 +23,10 @@ def systemMsg(msg):
         message_header = f"{len(msg):<{HEADER_LENGTH}}".encode('utf-8')
         client_socket.send(f"6         System".encode('utf-8') + message_header + message)
 
+def updateClientsmsg():
+    for x in range(len(clientList)):
+        systemMsg(f"UPDATE$Connected#{clientList[x]}%{x}")
+
 
 def receive_message(client_socket):
     try:
@@ -46,15 +50,17 @@ while True:
             clients[client_socket] = user
             print('Accepted new connection from {}:{}, username: {}'.format(*client_address, user['data'].decode('utf-8')))
 
-            clientList.append(client_address)
-            for x in range(len(clientList)):
-                systemMsg(f"UPDATE$Connected#{clientList[x]}%{x}")
+            clientList.append(user['data'])
+            updateClientsmsg()
+
         else:
             message = receive_message(notified_socket)
             if message is False:
                 print('Closed connection from: {}'.format(clients[notified_socket]['data'].decode('utf-8')))
                 sockets_list.remove(notified_socket)
+                del clientList[notified_socket]
                 del clients[notified_socket]
+                updateClientsmsg()
                 continue
             user = clients[notified_socket]
             print(f'Received message from {user["data"].decode("utf-8")}: {message["data"].decode("utf-8")}')
