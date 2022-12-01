@@ -1,14 +1,12 @@
-import socket
-import sys
-import errno
+import socket, sys, errno, secrets, eel
 
 HEADER_LENGTH = 10
-IP = ""
+IP = "192.168.166.141"
 PORT = 60003
 
 def main():
     print(IP)
-    my_username = input("username: ")
+    my_username = secrets.token_urlsafe(30)
 
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -19,11 +17,10 @@ def main():
     client_socket.send(username_header + username)
 
     while True:
-        message = input(f'{my_username} > ')
-        if message:
-            message = message.encode('utf-8')
-            message_header = f"{len(message):<{HEADER_LENGTH}}".encode('utf-8')
-            client_socket.send(message_header + message)
+        # if message:
+        #     message = message.encode('utf-8')
+        #     message_header = f"{len(message):<{HEADER_LENGTH}}".encode('utf-8')
+        #     client_socket.send(message_header + message)
         try:
             while True:
                 username_header = client_socket.recv(HEADER_LENGTH)
@@ -36,6 +33,12 @@ def main():
                 message_length = int(message_header.decode('utf-8').strip())
                 message = client_socket.recv(message_length).decode('utf-8')
                 print(f'{username} > {message}')
+                if(message[0:16]=="UPDATE$Connected"):
+                    pos = message[-1]
+                    id = message[message.find("#"):message.find("%")]
+                    print(pos, id)
+                    eel.updatePlayerLobby(pos, id)
+
 
         except IOError as e:
             if e.errno != errno.EAGAIN and e.errno != errno.EWOULDBLOCK:

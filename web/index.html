@@ -36,7 +36,7 @@
         <form>
             <h1 id="iptitle">INTRODUZCA LA DIRECCIÓN IP DE LA SALA:</h1>
             <input type="ip" id="submitForm" name="search" placeholder="Introduzca la dirección IP de la sala...">
-            <button class="center button smaller" onclick="connect()">CONECTAR</button>
+            <button class="center button smaller" onclick="connect()" type="button">CONECTAR</button>
             <button class="center button smaller" onclick="showScreen('MenuB')" type="button">CANCELAR</button>
         </form>
     </div>
@@ -44,11 +44,11 @@
         <img src="./media/logo.jpg" class="left" id="imgLogoSmall">
         <h1 id="ipAnnouce">IP de la sala: 127.0.0.1</h1>
         <div id="gridImgs">
-            <div align="center"><h2 class="NameTXT">JUGADOR 1</h2><img src="./media/userimg.png" class="center maxsize">Host</div>
-            <div align="center"><h2 class="NameTXT">JUGADOR 2</h2><img src="./media/userimg.png" class="center maxsize">Player</div>
-            <div align="center"><h2 class="NameTXT">JUGADOR 3</h2><img src="./media/userimg.png" class="center maxsize">Player</div>
-            <div align="center"><h2 class="NameTXT">JUGADOR 4</h2><img src="./media/userimg.png" class="center maxsize">Player</div>
-            <div align="Center"><h2 class="NameTXT">JUGADOR 5</h2><img src="./media/userimg.png" class="center maxsize">Player</div>
+            <div align="center"><h2 class="NameTXT">JUGADOR 1</h2><img src="./media/userimg.png" class="center maxsize"><h3 id="pos1">NO CONECTADO</h3></div>
+            <div align="center"><h2 class="NameTXT">JUGADOR 2</h2><img src="./media/userimg.png" class="center maxsize"><h3 id="pos2">NO CONECTADO</h3></div>
+            <div align="center"><h2 class="NameTXT">JUGADOR 3</h2><img src="./media/userimg.png" class="center maxsize"><h3 id="pos3">NO CONECTADO</h3></div>
+            <div align="center"><h2 class="NameTXT">JUGADOR 4</h2><img src="./media/userimg.png" class="center maxsize"><h3 id="pos4">NO CONECTADO</h3></div>
+            <div align="Center"><h2 class="NameTXT">JUGADOR 5</h2><img src="./media/userimg.png" class="center maxsize"><h3 id="pos5">NO CONECTADO</h3></div>
         </div>
         <button class="center button smaller">EMPEZAR</button>
         <button class="center button smaller" onclick="showScreen('MenuB')">CANCELAR</button>

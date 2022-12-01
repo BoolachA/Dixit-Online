@@ -14,6 +14,7 @@ server_socket.listen()
 
 sockets_list = [server_socket]
 clients = {}
+clientList = []
 
 print(f'Listening for connections on {IP}:{PORT}...')
 def systemMsg(msg):
@@ -44,6 +45,10 @@ while True:
             sockets_list.append(client_socket)
             clients[client_socket] = user
             print('Accepted new connection from {}:{}, username: {}'.format(*client_address, user['data'].decode('utf-8')))
+
+            clientList.append(client_address)
+            for x in range(len(clientList)):
+                systemMsg(f"UPDATE$Connected#{clientList[x]}%{x}")
         else:
             message = receive_message(notified_socket)
             if message is False:
@@ -55,8 +60,8 @@ while True:
             print(f'Received message from {user["data"].decode("utf-8")}: {message["data"].decode("utf-8")}')
 
             ################################################
-            if(message['data'].decode("utf-8")=="prueba5"):
-                systemMsg("hola")
+            if(message['data'].decode("utf-8")=="ping"):
+                systemMsg("pong")
 
     for notified_socket in exception_sockets:
         sockets_list.remove(notified_socket)

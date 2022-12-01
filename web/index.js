@@ -15,9 +15,15 @@ function showScreen(screenName){
     }
 }
 
+eel.expose(updatePlayerLobby);
+function updatePlayerLobby(pos, clientid){
+    document.getElementById('pos'+pos).innerHTML = clientid
+}
+
 function connect(){
     ip = document.getElementById('submitForm').value
     eel.startClient(ip)
+    showScreen("GameLobby")
 }
 
 async function getHostIp(){
