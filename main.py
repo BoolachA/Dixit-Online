@@ -1,4 +1,4 @@
-import eel, os, subprocess, socket, client, threading
+import eel, os, subprocess, socket, client
 #import ctypes
 #ctypes.windll.user32.MessageBoxW(0, "message", "title", "icon"16)
 
@@ -17,11 +17,8 @@ def configHost(stage):
 
 @eel.expose
 def startClient(ip):
-    global hiloClient
-    client.IP = ip
-    client.RunninigClient=True
-    hiloClient = threading.Thread(target=client.main)
-    hiloClient.start()
+    client.main()
+    #subprocess.call(['python client.py'])
 
 def main():
     eel.init('web')
